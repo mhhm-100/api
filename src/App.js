@@ -1,24 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { ToastContainer } from "react-toastify";
+import { Context } from "./context";
+import { useState } from "react";
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/login/Login";
+import Cart from "./pages/Cart/Cart";
+
 
 function App() {
+  const [user, setUser] = useState({});
+  const [checkUser ,setCheckUser ] = useState(false);
+  const [loding, setLoding] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Context.Provider value={{
+      checkUser,
+      setCheckUser,
+      loding,
+      setLoding,
+      user,
+      setUser
+    }}>
+      <ToastContainer rtl={true} theme='colored' />
+      <Routes>
+        <Route element={<Login/>} path="/"/>
+        <Route element={<Cart/>} path="/cart" />
+      </Routes>
+    </Context.Provider>
   );
 }
 
